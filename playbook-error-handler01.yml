@@ -1,0 +1,19 @@
+---
+- name: Learning about blks
+  hosts: planetexpress
+  connection: ssh #default connection type
+  gather_facts: false
+
+  tasks:
+
+  - name: BLOCK - this is what we want to try to do 
+    block:
+
+      - name: Eg task
+        shell: "echo 'My single task ran' > example.txt"
+
+      - name: eg task
+        shell: "echo 'My second task ran' >> example.txt"
+
+      - name: example task
+        shell: "echo 'my thrid task ran' >> example.txt"
