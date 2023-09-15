@@ -1,0 +1,27 @@
+---
+- name: Where is the Space Ship
+  hosts: localhost
+  gather_facts: no
+
+  vars_prompt:
+    - name: "PERSON"
+      prompt: "Enter your first name"
+      private: no
+  
+        ## var: spaceship  " {{ results }}"      
+    
+  tasks:
+    - name: Print out the persons name
+      debug:
+        msg: "Greetings: {{ PERSON }}"
+
+    - name : lookup the location of the spaceship
+      uri:
+          url: "http://api.open-notify.org/iss-now.json"
+          method: GET
+      register: results
+          
+
+    - name: Print out the results
+      debug:
+        msg: "{{ spaceship }}"
