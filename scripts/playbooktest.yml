@@ -28,5 +28,5 @@
 
     - name: the date
       debug:     
-        msg: "Today {{ results.date }} {{ PERSON }} the spaceship is located {{ results.json }}"
+        msg: "Today {{ results.date }} ,  {{ PERSON }} , the spaceship is located at latitude {{ results.json.iss_position.latitude }} and longitude {{ results.json.iss_position.longitude }}"
 
