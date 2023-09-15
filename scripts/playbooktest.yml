@@ -2,31 +2,36 @@
 - name: Where is the Space Ship
   hosts: localhost
   gather_facts: no
-
-  vars_prompt:
+    
+    ###################################################################################################################  
+    #This program will ask the user their name.  Then it will query the api for the international space station to    # 
+    #find out the location of the space station.  It will then send the location back to the user in a readable format#
+    ###################################################################################################################
+        
+  vars_prompt:                                                       # get the user's name
     - name: "PERSON"
       prompt: "Enter your first name"
       private: no
   
   vars:
-     spaceshiplocation: "http://api.open-notify.org/iss-now.json"    
+     spaceshiplocation: "http://api.open-notify.org/iss-now.json"    # specify a variable for the info for the station
     
   tasks:
-    - name: Print out the persons name
+    - name: Print out the persons name                               # say hello to the user
       debug:
         msg: "Greetings: {{ PERSON }}"
 
-    - name : lookup the location of the spaceship
+    - name : lookup the location of the spaceship                    # gather the info on the station
       uri:
           url: "{{ spaceshiplocation }}"
           method: GET
-      register: results
+      register: results                                              # store the information for use later   
 
     - name: Print out the results
       debug:
         var: results
 
-    - name: the date
+    - name: the date                                                 # message the user with the location
       debug:     
         msg: "Today {{ results.date }} ,  {{ PERSON }} , the spaceship is located at latitude {{ results.json.iss_position.latitude }} and longitude {{ results.json.iss_position.longitude }}"
 
